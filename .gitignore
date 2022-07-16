@@ -3,5 +3,5 @@
 ################################################################################
 
 /.vs
-/BackupSplitterCD/bin/Debug/netcoreapp2.1
+/BackupSplitterCD/bin
 /BackupSplitterCD/obj
