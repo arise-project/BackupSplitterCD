@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
+//using System.Runtime.InteropServices;
 using System.Text;
 
 namespace BackupSplitterCD
@@ -21,26 +21,26 @@ namespace BackupSplitterCD
         private static long _totalSize;
         private static string[] _files;
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        static extern IntPtr GetStdHandle(int nStdHandle);
+        //[DllImport("kernel32.dll", SetLastError = true)]
+        //static extern IntPtr GetStdHandle(int nStdHandle);
 
-        [DllImport("kernel32.dll")]
-        static extern bool ReadConsoleW(IntPtr hConsoleInput, [Out] byte[]
-           lpBuffer, uint nNumberOfCharsToRead, out uint lpNumberOfCharsRead,
-           IntPtr lpReserved);
+        //[DllImport("kernel32.dll")]
+        //static extern bool ReadConsoleW(IntPtr hConsoleInput, [Out] byte[]
+        //   lpBuffer, uint nNumberOfCharsToRead, out uint lpNumberOfCharsRead,
+        //   IntPtr lpReserved);
 
-        public static IntPtr GetWin32InputHandle()
-        {
-            const int STD_INPUT_HANDLE = -10;
-            IntPtr inHandle = GetStdHandle(STD_INPUT_HANDLE);
-            return inHandle;
-        }
+        //public static IntPtr GetWin32InputHandle()
+        //{
+        //    const int STD_INPUT_HANDLE = -10;
+        //    IntPtr inHandle = GetStdHandle(STD_INPUT_HANDLE);
+        //    return inHandle;
+        //}
 
 
         static void Main(string[] args)
         {
             Console.WriteLine("Folter to backup:");
-            _folder = ConsoleReadLine();
+            _folder = Console.ReadLine();
 
             if(!Directory.Exists(_folder))
             {
@@ -55,7 +55,7 @@ namespace BackupSplitterCD
             if (!_sameDestination)
             {
                 Console.WriteLine("Destination folter:");
-                _destFolder = ConsoleReadLine();
+                _destFolder = Console.ReadLine();
 
                 if (!Directory.Exists(_destFolder))
                 {
@@ -92,24 +92,24 @@ namespace BackupSplitterCD
             ProcessFolter();
         }
 
-        private static string ConsoleReadLine()
-        {
-            const int bufferSize = 1024;
-            var buffer = new byte[bufferSize];
+        //private static string ConsoleReadLine()
+        //{
+        //    const int bufferSize = 1024;
+        //    var buffer = new byte[bufferSize];
+        //
+        // uint charsRead = 0;
+        //
+        //  ReadConsoleW(GetWin32InputHandle(), buffer, bufferSize, out charsRead, (IntPtr)0);
+        // -2 to remove ending \n\r
+        //  int nc = ((int)charsRead - 2) * 2;
+         //   var b = new byte[nc];
+         //   for (var i = 0; i < nc; i++)
+         //       b[i] = buffer[i];
 
-            uint charsRead = 0;
-
-            ReadConsoleW(GetWin32InputHandle(), buffer, bufferSize, out charsRead, (IntPtr)0);
-            // -2 to remove ending \n\r
-            int nc = ((int)charsRead - 2) * 2;
-            var b = new byte[nc];
-            for (var i = 0; i < nc; i++)
-                b[i] = buffer[i];
-
-            var utf8enc = Encoding.UTF8;
-            var unicodeenc = Encoding.Unicode;
-            return utf8enc.GetString(Encoding.Convert(unicodeenc, utf8enc, b));
-        }
+         //   var utf8enc = Encoding.UTF8;
+         //   var unicodeenc = Encoding.Unicode;
+         //   return utf8enc.GetString(Encoding.Convert(unicodeenc, utf8enc, b));
+        //}
 
         private static void ProcessFolter()
         {
